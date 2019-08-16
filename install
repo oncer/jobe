@@ -43,14 +43,15 @@ def fail():
 
 
 def get_webserver():
+    return 'nginx'
     '''Find the user name used to run the Apache web server'''
-    ps_cmd = "ps aux | grep -E '/usr/sbin/(apache2|httpd)'"
+    ps_cmd = "ps aux | grep -E '/usr/sbin/(apache2|nginx|httpd)'"
     try:
         ps_lines = subprocess.check_output(ps_cmd, shell=True).decode('utf8').split('\n')
     except subprocess.CalledProcessError:
         raise Exception("ps command to find web-server user id failed. Is the web server running?")
     names = {ps_line.split(' ')[0] for ps_line in ps_lines}
-    candidates = names.intersection(set(['apache', 'www-data']))
+    candidates = names.intersection(set(['apache', 'nginx', 'www-data']))
     if len(candidates) != 1:
         raise Exception("Couldn't determine web-server user id. Is the web server running?")
     return list(candidates)[0]

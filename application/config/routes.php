@@ -50,5 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |       my-controller/my-method -> my_controller/my_method
 */
 $route['default_controller'] = 'restapi';
+$route['languages'] = 'restapi/languages';
+$route['runs'] = 'restapi/runs';
+$route['files'] = 'restapi/files';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
